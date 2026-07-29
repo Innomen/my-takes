@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Takes</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #26211c; color: #e8dcc8;
+    font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  }
+  header {
+    padding: 18px 20px; border-bottom: 1px solid #4a3f33;
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  }
+  header h1 { margin: 0; font-size: 20px; font-weight: 600; color: #f0c987; }
+  header .meta { color: #b8a888; font-size: 14px; }
+  header a { color: #e0a85a; text-decoration: none; }
+  header a:hover { text-decoration: underline; }
+  #grid {
+    display: grid; gap: 8px; padding: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+  .cell {
+    position: relative; aspect-ratio: 1; overflow: hidden;
+    background: #1c1813; border: 1px solid #4a3f33; border-radius: 6px;
+    cursor: pointer;
+  }
+  .cell img { width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .15s ease; }
+  .cell:hover img { transform: scale(1.04); }
+  #empty, #status { padding: 24px; color: #b8a888; }
+  /* lightbox */
+  #lb {
+    position: fixed; inset: 0; background: rgba(12,10,8,.95);
+    display: none; align-items: center; justify-content: center; z-index: 10;
+  }
+  #lb.open { display: flex; }
+  #lb img { max-width: 94vw; max-height: 88vh; object-fit: contain;
+    box-shadow: 0 0 40px rgba(0,0,0,.6); }
+  #lb .nav {
+    position: absolute; top: 0; bottom: 0; width: 18%;
+    display: flex; align-items: center; cursor: pointer; user-select: none;
+    color: #f0c987; font-size: 48px; opacity: .55; transition: opacity .15s;
+  }
+  #lb .nav:hover { opacity: 1; }
+  #lb #prev { left: 0; justify-content: flex-start; padding-left: 18px; }
+  #lb #next { right: 0; justify-content: flex-end; padding-right: 18px; }
+  #lb #close { position: absolute; top: 14px; right: 20px; font-size: 34px;
+    color: #f0c987; cursor: pointer; opacity: .7; z-index: 2; line-height: 1;
+    width: 44px; height: 44px; text-align: center; }
+  #lb #close:hover { opacity: 1; }
+  #lb #counter { position: absolute; bottom: 14px; left: 0; right: 0;
+    text-align: center; color: #b8a888; font-size: 14px; }
+  /* embedded in an iframe: the frame is as tall as the whole gallery, so a
+     viewport-fixed lightbox would land far off screen. The host page tells us
+     which slice is actually visible and we pin the lightbox to that. */
+  /* the host page supplies its own heading, so ours would just be a duplicate */
+  html.embedded header { display: none; }
+  html.embedded #lb { position: absolute; inset: auto 0 auto 0;
+    top: var(--lb-top, 0px); height: var(--lb-h, 100vh); }
+  html.embedded #lb img { max-height: calc(var(--lb-h, 100vh) * .88); }
+</style>
+</head>
+<body>
+<header>
+  <h1>My Takes</h1>
+  <span class="meta" id="count"></span>
+  <span class="meta">· <a href="https://brandonsergent.com">Brandon&nbsp;M.&nbsp;Sergent</a>
+    · <a href="https://innomen.github.io/ee-segments/">EE Segments</a>
+    · <a href="https://github.com/Innomen/my-takes">source</a></span>
+</header>
+<div id="status">Loading…</div>
+<div id="grid"></div>
+
+<div id="lb">
+  <span id="close" title="Close (Esc)">×</span>
+  <div class="nav" id="prev" title="Previous (←)">‹</div>
+  <img id="lbimg" alt="">
+  <div class="nav" id="next" title="Next (→)">›</div>
+  <div id="counter"></div>
+</div>
+
+<script>
+let images = [], idx = 0;
+const grid = document.getElementById('grid');
+const status = document.getElementById('status');
+const lb = document.getElementById('lb');
+const lbimg = document.getElementById('lbimg');
+const counter = document.getElementById('counter');
+
+fetch('manifest.json?' + Date.now())
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(list => {
+    images = list;
+    document.getElementById('count').textContent = list.length + ' images';
+    status.style.display = 'none';
+    if (!list.length) { status.textContent = 'No images yet.'; status.style.display = ''; return; }
+    const frag = document.createDocumentFragment();
+    list.forEach((name, i) => {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.src = encodeURI(name);
+      img.alt = name;
+      cell.appendChild(img);
+      cell.addEventListener('click', () => open(i));
+      frag.appendChild(cell);
+    });
+    grid.appendChild(frag);
+    postHeight();
+  })
+  .catch(e => { status.textContent = 'Could not load manifest.json (' + e + ').'; });
+
+function open(i) { idx = i; show(); lb.classList.add('open'); }
+function close() { lb.classList.remove('open'); lbimg.src = ''; postHeight(); }
+function show() {
+  lbimg.src = encodeURI(images[idx]);
+  counter.textContent = (idx + 1) + ' / ' + images.length;
+}
+function step(d) { idx = (idx + d + images.length) % images.length; show(); }
+
+document.getElementById('close').addEventListener('click', close);
+document.getElementById('prev').addEventListener('click', e => { e.stopPropagation(); step(-1); });
+document.getElementById('next').addEventListener('click', e => { e.stopPropagation(); step(1); });
+lb.addEventListener('click', e => { if (e.target === lb) close(); });
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') close();
+  else if (e.key === 'ArrowLeft') step(-1);
+  else if (e.key === 'ArrowRight') step(1);
+});
+let lastWheel = 0;
+lb.addEventListener('wheel', e => {
+  if (!lb.classList.contains('open')) return;
+  e.preventDefault();               // don't scroll the page behind the lightbox
+  const now = Date.now();
+  if (now - lastWheel < 120) return; // throttle: ~one image per notch
+  lastWheel = now;
+  step(e.deltaY > 0 ? 1 : -1);       // wheel down = next, up = previous
+}, { passive: false });
+
+/* ---- embed support -------------------------------------------------------
+   Inside an iframe this page reports its own height so the host can size the
+   frame instead of guessing, and the host replies with the slice of the frame
+   currently on screen so the lightbox lands where the reader is looking.
+   Both messages carry a source tag; anything else is ignored. Standalone
+   viewing is untouched. */
+const framed = window.parent !== window;
+let lastHeight = 0;
+
+function postHeight() {
+  if (!framed) return;
+  if (lb.classList.contains('open')) return;  // the absolute lightbox would feed back
+  const h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+  if (h === lastHeight) return;
+  lastHeight = h;
+  parent.postMessage({ source: 'my-takes', type: 'height', height: h }, '*');
+}
+
+if (framed) {
+  document.documentElement.classList.add('embedded');
+  addEventListener('resize', postHeight);
+  addEventListener('load', postHeight);
+  if (window.ResizeObserver) new ResizeObserver(postHeight).observe(document.body);
+  addEventListener('message', e => {
+    const d = e.data;
+    if (!d || d.source !== 'my-takes-host' || d.type !== 'viewport') return;
+    const root = document.documentElement.style;
+    root.setProperty('--lb-top', Math.round(d.top) + 'px');
+    root.setProperty('--lb-h', Math.round(d.height) + 'px');
+  });
+  parent.postMessage({ source: 'my-takes', type: 'ready' }, '*');
+}
+</script>
+</body>
+</html>
