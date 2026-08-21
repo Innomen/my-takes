@@ -4,7 +4,7 @@ Local Tesseract transcriptions of the public screenshots in this gallery.
 The image remains authoritative; OCR can misread names, punctuation, and interface text.
 
 1. [Transcript](42d29f6f-d7ca-4ed0-a976-c5a4ccd3501d_1181x832.md) · [source image](../42d29f6f-d7ca-4ed0-a976-c5a4ccd3501d_1181x832.webp)
-2. [Transcript](I'm%20a%20nerd%20Screenshot_20260722_194548.md) · [source image](../I'm%20a%20nerd%20Screenshot_20260722_194548.png)
+2. [Transcript](I%27m%20a%20nerd%20Screenshot_20260722_194548.md) · [source image](../I%27m%20a%20nerd%20Screenshot_20260722_194548.png)
 3. [Transcript](Screenshot_20260705_104816.md) · [source image](../Screenshot_20260705_104816.png)
 4. [Transcript](Screenshot_20260705_105555.md) · [source image](../Screenshot_20260705_105555.png)
 5. [Transcript](Screenshot_20260705_111501.md) · [source image](../Screenshot_20260705_111501.png)

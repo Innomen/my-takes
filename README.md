@@ -8,6 +8,9 @@ accessibility, vault retrieval, and synthesis. The screenshots remain authoritat
 machine transcription can misread punctuation, names, and interface text. New images
 are transcribed automatically before the repository sync commits them.
 
+The [interpretation context](CONTEXT.md) distills recurring reasoning moves for AI retrieval without
+turning public arguments into biography or overriding canonical EMS definitions.
+
 Experiential Empiricism and Reality Repair Theory are a natural subset of this
 larger collection. They have their own gallery at
 [EE Segments](https://innomen.github.io/ee-segments/).

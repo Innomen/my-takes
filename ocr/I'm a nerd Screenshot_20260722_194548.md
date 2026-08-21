@@ -10,7 +10,7 @@ tags: [my-takes, public-take, ocr]
 
 # Public Take transcript
 
-![Source screenshot](../I'm%20a%20nerd%20Screenshot_20260722_194548.png)
+![Source screenshot](../I%27m%20a%20nerd%20Screenshot_20260722_194548.png)
 
 ## Machine transcription
 
