@@ -3,6 +3,11 @@
 A screenshot collection of Brandon M. Sergent's public comments on politics,
 technology, media, games, culture, and everyday life.
 
+The [OCR corpus](ocr/README.md) provides local Tesseract transcriptions for search,
+accessibility, vault retrieval, and synthesis. The screenshots remain authoritative;
+machine transcription can misread punctuation, names, and interface text. New images
+are transcribed automatically before the repository sync commits them.
+
 Experiential Empiricism and Reality Repair Theory are a natural subset of this
 larger collection. They have their own gallery at
 [EE Segments](https://innomen.github.io/ee-segments/).
