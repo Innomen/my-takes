@@ -172,5 +172,6 @@ The image remains authoritative; OCR can misread names, punctuation, and interfa
 167. [Transcript](Screenshot_20260925_155832.md) · [source image](../Screenshot_20260925_155832.png)
 168. [Transcript](Screenshot_20260926_231059.md) · [source image](../Screenshot_20260926_231059.png)
 169. [Transcript](Screenshot_20260927_191939.md) · [source image](../Screenshot_20260927_191939.png)
-170. [Transcript](harp%20lost%20Screenshot_20260725_101023.md) · [source image](../harp%20lost%20Screenshot_20260725_101023.png)
-171. [Transcript](the%20fucking%20comments%20are%20all%20like%20this%20apart%20from%20mine%20Screenshot_20260710_133544.md) · [source image](../the%20fucking%20comments%20are%20all%20like%20this%20apart%20from%20mine%20Screenshot_20260710_133544.png)
+170. [Transcript](Screenshot_20260927_201458.md) · [source image](../Screenshot_20260927_201458.png)
+171. [Transcript](harp%20lost%20Screenshot_20260725_101023.md) · [source image](../harp%20lost%20Screenshot_20260725_101023.png)
+172. [Transcript](the%20fucking%20comments%20are%20all%20like%20this%20apart%20from%20mine%20Screenshot_20260710_133544.md) · [source image](../the%20fucking%20comments%20are%20all%20like%20this%20apart%20from%20mine%20Screenshot_20260710_133544.png)
