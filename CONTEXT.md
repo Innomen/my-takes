@@ -19,6 +19,11 @@ Repair Theory, or SPS documents. Screenshots remain authoritative; OCR is noisy.
   that a model needs repair, not something politeness should hide.
 - Distinguish outcomes from intent. Good intentions do not cancel harmful structure, and ugly tone
   does not by itself refute a causal argument.
+- For the November 5 civility/protocol takes, distinguish criticism of conduct from refutation of a
+  claim. A demand for performed uncertainty is not a neutral epistemic standard; justified confidence
+  remains open to correction. Polite work's lack of uptake challenges a tone-only explanation, while
+  leaving particular readers' motives unknown. Source comparison and site carry are recorded in
+  `SOURCERY/EE-Debate-Archive/Civility-And-Argument-2026-11-05.md`.
 - Treat suffering reduction as the ethical anchor. Retribution, purity, prestige, and obedience are
   subordinate to whether a system predictably improves experience.
 - Treat agency as constrained rather than magical. Useful action identifies a real control surface
